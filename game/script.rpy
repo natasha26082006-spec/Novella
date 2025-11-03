@@ -123,6 +123,32 @@ init python:
 # maintain
 # vibrant
 # delight
+# assist
+# circumstances 
+# acquired 
+# surroundings
+# hedge
+# gathering
+# assembly
+# muffle
+# proceed
+# firm
+# mahogany
+# examine
+# inspect
+# brew
+# Observe
+# rapidly
+# Resume
+# obligations 
+# Investigate 
+# disturbance
+# Fatigue
+# overwhelmed
+# curiosity
+# Faint 
+# flicker
+# extinguish
 #
 
 # ---------------------------------------------------------
@@ -231,8 +257,8 @@ label ch1_meet_mary:
 label ch1_meet_cynthia:
     hide mary with dissolve
     show cynthia at left
-    C "Good afternoon! I frequently assist at the village dispensary — should you require any medicinal preparations, I can recommend reliable sources."
-    H "I hope circumstances won't necessitate them, but the information is valuable regardless."
+    C "Good afternoon! I frequently assist at the village hospital's pharmacy — if you require any medicines, you can contact me."
+    H "I hope circumstances don't require it, but the information is valuable anyway."
     $ add_note("Cynthia, under Emily's guardianship, works at the village pharmacy.")
     hide cynthia with dissolve
     jump ch1_branch_more_people
@@ -241,7 +267,7 @@ label ch1_meet_lawrence:
 
     hide mary with dissolve
     show lawrence at left
-    L "Your timing is fortuitous — the library has recently acquired several rare editions."
+    L "You have chosen a good time — the library has recently acquired several rare editions."
     H "That sounds particularly intriguing."
     $ add_note("Lawrence, the younger son, appears introverted and somewhat withdrawn.")
     hide lawrence with dissolve
@@ -257,25 +283,25 @@ label ch1_branch_more_people:
             jump ch1_meet_cynthia
         "Approach Lawrence":
             jump ch1_meet_lawrence
-        "Conclude introductions — commence exploration":
+        "Conclude introductions":
             jump ch1_free_roam_intro
 
 # Free overview of locations 
 label ch1_free_roam_intro:
 
-    N "I had leisure before the evening meal. The house itself seemed to invite systematic exploration."
+    N "I had leisure time before dinner. It was a perfect chance to explore surroundings."
     $ add_note("Initial exploration: garden, library, guest chamber.")
     jump ch1_hub
 
 label ch1_hub:
 
     menu:
-        "Which area warrants investigation?"
+        "Which area requires exploration?"
         "Garden — pathways, hedges, summerhouse":
             jump ch1_garden_first
-        "Library — documents, correspondence, volumes":
+        "Library — documents, letters, books":
             jump ch1_library_first
-        "Guest chamber — settle belongings":
+        "Guest room — settle belongings":
             jump ch1_guestroom_first
         "Join the gathering — evening assembly in the hall":
             jump ch1_evening
@@ -283,29 +309,29 @@ label ch1_hub:
 label ch1_garden_first:
 
     scene bg garden with dissolve
-    N "The garden's foliage whispered like conspirators exchanging secrets. Muffled voices carried from a distant arbor."
+    N "The atmosphere in the garden was peaceful. Birds were singing and  leaves were rustling. Muffled voices could be heard from a distant arbor."
     menu:
         "How should I proceed?"
-        "Approach discreetly to overhear":
-            H " (The discussion involved tense exchanges. A feminine voice maintained firmness, while the masculine response seemed deliberately ambiguous.)"
+        "Approach carefully to overhear":
+            H " (The discussion was intense. The woman's voice remained firm, while the man was rather irritated.)"
             $ add_note("Witnessed a strained conversation in the garden — specific content remained indistinct.")
             $ suspicion["Alfred"] += 1
         "Continue walking without interruption":
-            H "For now, I remain a guest rather than an investigator."
+            H "I shouldn't overhear other people's conversations."
     jump ch1_hub
 
 label ch1_library_first:
 
     scene bg library with dissolve
-    N "The library greeted me with the distinctive scent of aged paper and polished mahogany. A local map lay unfolded on the desk beside an empty envelope."
+    N "The library greeted me with the smell of old paper and polished mahogany. An open map of the area lay on the table next to an empty envelope."
     menu:
-        "What merits examination?"
-        "Survey the map":
-            H "The routes to the village are clearly marked. A separate path indicates direct access to the dispensary."
+        "Where should I start?"
+        "Examine the map":
+            H "The routes to the village are clearly marked. A separate path indicates direct access to the hospital's pharmacy."
             $ add_clue("map_pharmacy", "The map highlights a footpath leading directly to the village pharmacy.")
             jump ch1_library_first
         "Inspect the envelope":
-            H "It remains unmarked, bearing only a printer's insignia. Someone removed its contents recently."
+            H "It remains unmarked, it has only a printer's insignia. Someone removed its contents recently."
             $ add_clue("blank_envelope", "Empty envelopes with distinctive printing are available in the house.")
             jump ch1_library_first
         "Return to exploration":
@@ -315,15 +341,15 @@ label ch1_library_first:
 label ch1_guestroom_first:
 
     scene bg guestroom with dissolve
-    N "The chamber offered comfortable accommodation: garden views, a traveling trunk, and a writing desk."
+    N "The room was cozy: a warm light illuminated the room, a cup of freshly brewed coffee was steaming  on the writing desk, the bed was neatly made up and smelled fresh."
     menu:
         "What requires attention?"
-        "Organize my possessions":
-            H "Several shirts, a notebook for observations — the latter will prove essential."
+        "Put my things away":
+            H "A few shirts, a notebook, glasses and pajamas."
             $ add_note("I've prepared a notebook for recording significant details.")
             jump ch1_guestroom_first
         "Observe through the window":
-            H "A figure moved rapidly past the distant wing. Identification proved impossible."
+            H "A figure moved rapidly past the distant wing. Identification was impossible."
             $ add_note("Observed an unidentified individual hurrying toward the remote wing.")
             jump ch1_guestroom_first
         "Resume exploration":
@@ -337,31 +363,31 @@ label ch1_evening:
     stop music fadeout 0.6
     play music "audio/fireplace_evening.mp3" fadein 1.0
 
-    N "By evening, the household assembled near the fireplace. Light and shadow danced across the walls as if the mansion itself listened intently."
+    N "By evening, all member of the family assembled near the fireplace. "
     show emily at center
-    E "I have obligations in the village tomorrow. I anticipate everything will proceed efficiently."
+    E "I have obligations in the village tomorrow. I hope everything will proceed efficiently."
     $ add_note ("The lady of the house plans a village excursion tomorrow.")
 
     show john at left
-    J "Should you require transportation, simply inform me."
+    J "If you require transportation, just inform me."
     show alfred at right
-    A "Regrettably, correspondence demands my attention."
+    A "I'm sorry, I have to leave you, I have an appointment."
     hide alfred with dissolve
     hide emily with dissolve
     hide john with dissolve
 
-    N "The conversation maintained perfect civility; the exchanged glances conveyed different messages entirely."
+    N "Although the conversation was conducted in formal politeness, there was doubt and wariness in the looks."
     stop music fadeout 1.0
 
     # Night
     scene bg guestroom_ev with dissolve
     play music "audio/night_creaks.mp3" fadein 0.8
-    N "During the night's deepest hours, the house's acoustics transformed. Initial rustling yielded to distant, urgent footsteps."
+    N "During the night's deepest hours, the atmosphere in the house changed. The initial rustle was replaced by distant urgent footsteps."
     menu:
         "Investigate the disturbance?"
         "Remain in bed":
-            H "(Fatigue overwhelmed curiosity. Morning will provide clarification.)"
-        "Venture into the corridor":
+            H "(Fatigue overwhelmed curiosity. Morning will clear everything up.)"
+        "Go out into the corridor":
             scene bg corridor with dissolve
             N "Faint lamplight illuminated the hallway. A distant door's light flickered briefly before extinguishing."
             $ add_note("Someone maintained nocturnal activity in the remote wing.")
