@@ -1,4 +1,3 @@
-﻿
 # Определение персонажей игры.
 define N = Character(None)
 define H = Character ("Hastings", color = "#0e2838")
@@ -45,10 +44,6 @@ init python:
     def add_note(text):
         if text not in notebook:
             notebook.append(text)
-    def add_clue(key, text):
-        if key not in clues:
-            clues[key] = True
-            add_note(text)
 
 default notebook_page = 0
 define NOTES_PER_PAGE = 5   # Сколько заметок показывать на одной странице
@@ -92,22 +87,7 @@ init python:
     if "ui_overlay" not in config.overlay_screens:
         config.overlay_screens.append("ui_overlay")
 
-# VOCABULARY B2 LEVEL:
-# tranquil - peaceful, calm
-# estate - large property with land
-# facade - front exterior of a building
-# meticulous - showing great attention to detail
-# restrained - controlled, not showing emotion
-# withdrawn - shy, quiet, not communicative
-# ambiguous - unclear, able to be interpreted multiple ways
-# residue - remaining traces of something
-# methodical - systematic, orderly
-# superficial - on the surface, not deep
-# inheritance - property received from someone who has died
-# coincidence - chance occurrence of events
-# speculation - forming theories without firm evidence
-  
-# inding
+# winding
 # ivy
 # gravel
 # assistance
@@ -134,7 +114,6 @@ init python:
 # proceed
 # firm
 # mahogany
-# examine
 # inspect
 # brew
 # Observe
@@ -149,7 +128,6 @@ init python:
 # Faint 
 # flicker
 # extinguish
-#
 
 # ---------------------------------------------------------
 # ГЛАВА 1 — ПРИБЫТИЕ В СТАЙЛЗ
@@ -160,19 +138,20 @@ label start:
     play music "audio/strings_manor_day.mp3" fadein 1.2
 
     N "On a bright afternoon, the winding road led me to Styles Court, a quiet mansion which didn't attract much attention. The facade looked welcoming — ivy embraced the walls, a gravel path led to the oak door, sunlight reflected on the windows."
-    $ add_note ("I have arrived at Styles, the country estate of the Cavendish family.")
+    $ add_note ("Winding - a path/road, etc that bends a lot and is not straight.")
+    $ add_note ("Ivy - a dark green plant that often grows up walls.")
+    $ add_note ("Gravel - small pieces of stone used to make paths and road surfaces.")
 
     show john at right
     J "Hastings! Long time no see, we missed London's news."
     H "John, glad to see you again. Everything appears unchanged here... at first sight."
-    $ add_note("The host is John Cavendish, an old friend of mine.")
-
-    N "There was the scent of polished oak and fresh flowers in the hall. A servant took my luggage to the house."
 
     scene bg hall with dissolve
+    N "There was the scent of polished oak and fresh flowers in the hall. A servant took my luggage to the house."
     show dorkas at center
     S "Your belongings will be delivered to your room momentarily, sir." 
     H "Thank you, I appreciate your assistance."
+    $ add_note("Assistance - help.")
     hide dorkas with dissolve
     
     menu:
@@ -189,8 +168,7 @@ label ch1_meet_emily:
     show emily at center
     E "Welcome to our home. I hope the peaceful atmosphere and gardens will provide you with relaxation."
     H "Thank you for the warm welcome. The estate is truly magnificent."
-    $ add_note("Emily Inglethorp manages the household with notable energy and attention.")
-    $ add_clue("emily_rules_home", "Emily maintains absolute control over domestic affairs and finances.")
+    $ add_note("Estate - a large area of land in the countryside that is owned by one person or organization.")
     hide emily with dissolve
     menu:
         "Continue making acquaintances"
@@ -200,13 +178,16 @@ label ch1_meet_emily:
             jump ch1_meet_mary
         "Request permission to examine the library":
             jump ch1_free_roam_intro
+    $ add_note("Acquaintance - someone who you know but do not know well.")
+    $ add_note("Engage - to interest someone in something and keep them thinking about it.")
+    $ add_note("Examine - to look at someone or something very carefully, especially to try to discover something.")
 
-label ch1_meet_alfred:
+label ch1_meet_alfred: 
 
     show alfred at right
     A "A pleasure to make your acquaintance. We value precision and routine here, and I hope you'll appreciate these qualities."
+    $ add_note("Precision - the quality of being very exact and accurate.")
     H "Of course, I will respect both the customs and the rules of this house."
-    $ add_note("Alfred Inglethorp, Emily's considerably younger husband, demonstrates meticulously polite behavior.")
     $ suspicion["Alfred"] += 1
     menu:
         "What's your initial impression of Alfred?"
@@ -217,6 +198,10 @@ label ch1_meet_alfred:
             $ suspicion["Alfred"] += 1
         "Refrain from premature conclusions.":
             pass
+    $ add_note("Initial - first, or happening at the beginning.")
+    $ add_note("Excessively - more than is necessary or wanted.")
+    $ add_note("Cautious - taking care to avoid risks or danger.")
+    $ add_note("Refrain - to stop yourself from doing something.")
     hide alfred with dissolve
     jump ch1_meet_mary
 
@@ -224,8 +209,9 @@ label ch1_meet_john:
 
     show john at right
     J "The family maintains appearances, though everyone has their own concerns. As expected, my mother remains active."
+    $ add_note("Maintain - to make a situation or activity continue in the same way.")
     H "This shows that the household continues its vibrant activity."
-    $ add_note("John seems reluctant to elaborate on family matters.")
+    $ add_note("Vibrant - full of excitement and energy.")
     hide john with dissolve
 
     menu:
@@ -242,7 +228,7 @@ label ch1_meet_mary:
     show mary at left
     M "Delighted to make your acquaintance. The garden is particularly splendid this time — if you prefer peaceful environment."
     H "I adore it. The garden is wonderful."
-    $ add_note("Mary demonstrates perceptive intelligence and maintains dignified composure.")
+    $ add_note("Delight - happiness and excited pleasure.")
     
     menu:
         "Respond to Mary"
@@ -258,8 +244,9 @@ label ch1_meet_cynthia:
     hide mary with dissolve
     show cynthia at left
     C "Good afternoon! I frequently assist at the village hospital's pharmacy — if you require any medicines, you can contact me."
+    $ add_note("Assist - to help.")
     H "I hope circumstances don't require it, but the information is valuable anyway."
-    $ add_note("Cynthia, under Emily's guardianship, works at the village pharmacy.")
+    $ add_note("Circumstances - facts or events that make a situation the way it is.")
     hide cynthia with dissolve
     jump ch1_branch_more_people
 
@@ -268,8 +255,8 @@ label ch1_meet_lawrence:
     hide mary with dissolve
     show lawrence at left
     L "You have chosen a good time — the library has recently acquired several rare editions."
+    $ add_note("Acquired - to get something.")
     H "That sounds particularly intriguing."
-    $ add_note("Lawrence, the younger son, appears introverted and somewhat withdrawn.")
     hide lawrence with dissolve
     jump ch1_branch_more_people
 
@@ -290,7 +277,7 @@ label ch1_branch_more_people:
 label ch1_free_roam_intro:
 
     N "I had leisure time before dinner. It was a perfect chance to explore surroundings."
-    $ add_note("Initial exploration: garden, library, guest chamber.")
+    $ add_note("Surroundings - the place where someone or something is and the things that are in it.")
     jump ch1_hub
 
 label ch1_hub:
@@ -305,55 +292,60 @@ label ch1_hub:
             jump ch1_guestroom_first
         "Join the gathering — evening assembly in the hall":
             jump ch1_evening
+    $ add_note("Hedge - a row of bushes growing close together, often used to divide land into separate areas.")
+    $ add_note("Gathering - a party or a meeting when many people get together as a group.")
+    $ add_note("Assembly - a regular meeting of all the students and teachers at a school.")
 
 label ch1_garden_first:
 
     scene bg garden with dissolve
     N "The atmosphere in the garden was peaceful. Birds were singing and  leaves were rustling. Muffled voices could be heard from a distant arbor."
+    $ add_note("Muffle - to make a noise quieter and less clear.")
     menu:
         "How should I proceed?"
         "Approach carefully to overhear":
             H " (The discussion was intense. The woman's voice remained firm, while the man was rather irritated.)"
-            $ add_note("Witnessed a strained conversation in the garden — specific content remained indistinct.")
             $ suspicion["Alfred"] += 1
         "Continue walking without interruption":
             H "I shouldn't overhear other people's conversations."
+    $ add_note("Proceed - to continue as planned.")
+    $ add_note("Firm - not soft, but not completely hard.")
     jump ch1_hub
 
 label ch1_library_first:
 
     scene bg library with dissolve
     N "The library greeted me with the smell of old paper and polished mahogany. An open map of the area lay on the table next to an empty envelope."
+    $ add_note("Mahogany - a dark, red-brown wood used to make furniture.")
     menu:
         "Where should I start?"
         "Examine the map":
             H "The routes to the village are clearly marked. A separate path indicates direct access to the hospital's pharmacy."
-            $ add_clue("map_pharmacy", "The map highlights a footpath leading directly to the village pharmacy.")
-            jump ch1_library_first
         "Inspect the envelope":
             H "It remains unmarked, it has only a printer's insignia. Someone removed its contents recently."
-            $ add_clue("blank_envelope", "Empty envelopes with distinctive printing are available in the house.")
             jump ch1_library_first
         "Return to exploration":
             pass
+    $ add_note("Inspect - to look at something very carefully.")
     jump ch1_hub
 
 label ch1_guestroom_first:
 
     scene bg guestroom with dissolve
     N "The room was cozy: a warm light illuminated the room, a cup of freshly brewed coffee was steaming  on the writing desk, the bed was neatly made up and smelled fresh."
+    $ add_note("Brew - If you brew tea or coffee, you make it by adding hot water, and if it brews, it gradually develops flavour in hot water.")
     menu:
         "What requires attention?"
         "Put my things away":
             H "A few shirts, a notebook, glasses and pajamas."
-            $ add_note("I've prepared a notebook for recording significant details.")
             jump ch1_guestroom_first
         "Observe through the window":
             H "A figure moved rapidly past the distant wing. Identification was impossible."
-            $ add_note("Observed an unidentified individual hurrying toward the remote wing.")
             jump ch1_guestroom_first
         "Resume exploration":
             pass
+    $ add_note("Observe - to watch someone or something carefully.")
+    $ add_note("Rapidly - happening or moving very quickly.")
     jump ch1_hub
 
 # Evening of the 1st chapter
@@ -366,7 +358,7 @@ label ch1_evening:
     N "By evening, all member of the family assembled near the fireplace. "
     show emily at center
     E "I have obligations in the village tomorrow. I hope everything will proceed efficiently."
-    $ add_note ("The lady of the house plans a village excursion tomorrow.")
+    $ add_note ("Obligations - something that you do because it is your duty or because you feel you have to.")
 
     show john at left
     J "If you require transportation, just inform me."
@@ -390,134 +382,26 @@ label ch1_evening:
         "Go out into the corridor":
             scene bg corridor with dissolve
             N "Faint lamplight illuminated the hallway. A distant door's light flickered briefly before extinguishing."
-            $ add_note("Someone maintained nocturnal activity in the remote wing.")
+    $ add_note("Investigate - to try to discover all the facts about something, especially a crime or accident.")
+    $ add_note("Disturbance - something that interrupts what you are doing, especially something loud or annoying.")
+    $ add_note("Fatigue - the feeling of being tired.")
+    $ add_note("Overwhelmed - If a feeling or situation overwhelms someone, it has an effect that is too strong or extreme..")
+    $ add_note("Curiosity - the feeling of wanting to know or learn about something.")
+    $ add_note("Faint - slight and not easy to notice, smell, hear, etc.")
+    $ add_note("Flicker - to shine with a light that is sometimes bright and sometimes weak.")
+    $ add_note("Extinguish - to stop something burning or giving out light.")
     stop music fadeout 1.0
 
     N "Thus concluded my initial day at Styles Court."
-    jump vocabulary_quiz
+    jump english_vocabulary_quiz
 
-label vocabulary_quiz:
-    scene bg library with fade
-    play music "audio/thinking.mp3" fadein 1.0
-    
-    show poirot at center
-    P "Mon ami! Before we continue our investigation, let us test your comprehension of the situation. Answer these questions to demonstrate your analytical abilities."
-    
-    $ quiz_score = 0
-    $ total_questions = 5
-    
-    # Question 1 - Vocabulary
-    menu quiz_question1:
-        P "First question: What does the word 'tranquil' mean in the context of the estate's description?"
-        
-        "Noisy and busy":
-            H "I don't think that's right..."
-            P "Incorrect, my friend. The estate was described as peaceful, not noisy."
-            
-        "Peaceful and calm":
-            H "Yes, the estate appeared calm and peaceful."
-            P "Exactly! 'Tranquil' means peaceful and calm. +1 point for your observation."
-            $ quiz_score += 1
-            
-        "Dangerous and threatening":
-            H "That doesn't seem accurate."
-            P "Non, the facade was welcoming, not threatening."
-    
-    # Question 2 - Plot comprehension
-    menu quiz_question2:
-        P "Second question: What was Hastings' initial impression of Alfred Inglethorp?"
-        
-        "Warm and friendly":
-            H "No, he was quite formal actually."
-            P "His politeness lacked genuine warmth, you recall."
-            
-        "Meticulously polite and reserved":
-            H "Yes, he was very formal and measured in his speech."
-            P "Precisely! He demonstrated meticulously polite behavior. +1 point."
-            $ quiz_score += 1
-            
-        "Angry and confrontational":
-            H "No, he was quite controlled."
-            P "He was restrained, not confrontational."
-    
-    # Question 3 - Vocabulary in context
-    menu quiz_question3:
-        P "Third question: When we found 'residue' in the cup, what were we referring to?"
-        
-        "The cup itself":
-            H "No, it was something inside the cup."
-            P "The residue was inside the cup, not the cup itself."
-            
-        "Remaining traces of liquid":
-            H "Yes, the leftover substance in the cup."
-            P "Correct! Residue means remaining traces of something. +1 point."
-            $ quiz_score += 1
-            
-        "The cup's design":
-            H "That doesn't make sense in context."
-            P "We were examining the contents, not the design."
-    
-    # Question 4 - Character analysis
-    menu quiz_question4:
-        P "Fourth question: How would you describe Lawrence Cavendish's personality based on our observations?"
-        
-        "Outgoing and sociable":
-            H "No, he seemed quite the opposite."
-            P "He was not particularly sociable, you recall."
-            
-        "Introverted and withdrawn":
-            H "Yes, he appeared quiet and reserved."
-            P "Exactly! He appeared introverted and somewhat withdrawn. +1 point."
-            $ quiz_score += 1
-            
-        "Suspicious and dangerous":
-            H "We shouldn't jump to conclusions."
-            P "We have no evidence to suggest he is dangerous."
-    
-    # Question 5 - Vocabulary application
-    menu quiz_question5:
-        P "Final question: What does 'methodical' mean in the context of our investigation?"
-        
-        "Random and chaotic":
-            H "No, that's the opposite of how we work."
-            P "Our approach is systematic, not chaotic."
-            
-        "Slow and inefficient":
-            H "No, being methodical doesn't mean being slow."
-            P "Methodical means orderly and systematic, not necessarily slow."
-            
-        "Systematic and orderly":
-            H "Yes, we follow a careful, step-by-step process."
-            P "Perfect! Methodical means systematic and orderly. +1 point."
-            $ quiz_score += 1
-    
-    # Quiz results
-    hide poirot
-    show poirot at center
-    if quiz_score == total_questions:
-        P "Magnifique! You scored [quiz_score] out of [total_questions]! Your comprehension is excellent, mon ami. You notice the important details."
-        H "Thank you, Poirot. I'm trying to be as observant as you."
-        
-    elif quiz_score >= 3:
-        P "Not bad, my friend. [quiz_score] out of [total_questions] - you have a good eye for details, but there is room for improvement."
-        H "I'll continue to develop my observational skills."
-        
-    else:
-        P "Hmm, [quiz_score] out of [total_questions]. We must work on your attention to detail. The little grey cells need more exercise!"
-        H "I'll study more carefully, Poirot."
-    
-    # Vocabulary review
-    P "Let us review the key vocabulary from our investigation:"
-    show screen vocabulary_review
-    pause
-    hide screen vocabulary_review
-    
-    P "Now, let us return to our investigation. Remember these words - they may prove crucial to solving our mystery."
-    
-    stop music fadeout 1.0
-    jump start_quiz_from_menu
+# ---------------------------------------------------------
+# СИСТЕМА ТЕСТОВ ДЛЯ ИЗУЧЕНИЯ АНГЛИЙСКОГО
+# ---------------------------------------------------------
+default english_quiz_score = 0
+default total_english_questions = 15
 
-screen vocabulary_review():
+screen english_quiz_results():
     modal True
     frame:
         xalign 0.5
@@ -525,35 +409,323 @@ screen vocabulary_review():
         xpadding 30
         ypadding 30
         has vbox
-        spacing 10
+        spacing 15
         
-        label "Vocabulary Review" xalign 0.5
-        text "tranquil - peaceful, calm" size 18
-        text "estate - large property with land" size 18
-        text "facade - front exterior appearance" size 18
-        text "meticulous - showing great attention to detail" size 18
-        text "residue - remaining traces of something" size 18
-        text "methodical - systematic, orderly" size 18
-        text "withdrawn - shy, quiet, not communicative" size 18
-        text "inheritance - property received after someone's death" size 18
+        label "Quiz Results" xalign 0.5
+        
+        if english_quiz_score >= 12:
+            text "Excellent! You scored [english_quiz_score]/[total_english_questions]!" size 24 color "#00ff00" xalign 0.5
+            text "Your English comprehension is outstanding!" size 18 xalign 0.5
+        elif english_quiz_score >= 8:
+            text "Good job! [english_quiz_score]/[total_english_questions]" size 24 color "#ffff00" xalign 0.5
+            text "You have a solid understanding of the vocabulary." size 18 xalign 0.5
+        else:
+            text "Score: [english_quiz_score]/[total_english_questions]" size 24 color "#ff0000" xalign 0.5
+            text "Keep practicing to improve your skills!" size 18 xalign 0.5
         
         textbutton "Continue":
             xalign 0.5
-            action Hide("vocabulary_review")
+            action [Hide("english_quiz_results"), Return()]
 
-# Добавляем возможность запуска квиза из главного меню или в процессе игры
-label start_quiz_from_menu:
+label english_vocabulary_quiz:
+    scene bg study with fade
+    play music "audio/thinking.mp3" fadein 1.0
+    
+    show poirot at center
+    P "Mon ami! Now we shall test your English comprehension. Let us begin with vocabulary!"
+    
+    $ english_quiz_score = 0
+    
+    # SECTION 1: VOCABULARY - MEANING OF WORDS (5 questions)
+    P "First section: Vocabulary meaning. Choose the correct definition."
+    
+    # Question 1
+    menu vocab1:
+        P "What does 'tranquil' mean?"
+        
+        "Noisy and chaotic":
+            H "That doesn't sound right."
+            P "Incorrect! Tranquil means peaceful."
+            
+        "Peaceful and calm":
+            H "Yes, like the tranquil garden."
+            P "Exactly correct! +1 point"
+            $ english_quiz_score += 1
+            
+        "Dangerous and threatening":
+            H "No, that's the opposite."
+            P "Non, tranquil describes peace, not danger."
+    
+    # Question 2
+    menu vocab2:
+        P "What is the meaning of 'meticulous'?"
+        
+        "Careless and sloppy":
+            H "No, that's the opposite meaning."
+            P "Meticulous is the opposite of careless."
+            
+        "Showing great attention to detail":
+            H "Yes, like Poirot's methods."
+            P "Perfect! You understand precisely. +1 point"
+            $ english_quiz_score += 1
+            
+        "Quick and hurried":
+            H "No, meticulous work takes time."
+            P "Meticulous work requires care, not speed."
+    
+    # Question 3  
+    menu vocab3:
+        P "Define 'residue' in our investigation context."
+        
+        "The main ingredient":
+            H "No, residue is what's left over."
+            P "Residue refers to what remains, not the main part."
+            
+        "Remaining traces of something":
+            H "Yes, like residue in a cup."
+            P "Excellent deduction! +1 point"
+            $ english_quiz_score += 1
+            
+        "A type of evidence bag":
+            H "No, that's not the definition."
+            P "Residue is the substance, not the container."
+    
+    # Question 4
+    menu vocab4:
+        P "What does 'withdrawn' mean when describing Lawrence?"
+        
+        "Very sociable and outgoing":
+            H "No, Lawrence is quiet."
+            P "Withdrawn means the opposite of outgoing."
+            
+        "Shy, quiet, not communicative":
+            H "Yes, he keeps to himself."
+            P "Precisely! You observe well. +1 point"
+            $ english_quiz_score += 1
+            
+        "Angry and confrontational":
+            H "No, he's reserved, not angry."
+            P "Withdrawn suggests quietness, not anger."
+    
+    # Question 5
+    menu vocab5:
+        P "What is an 'estate' in our story?"
+        
+        "A small apartment":
+            H "No, Styles is large."
+            P "An estate is large, not small."
+            
+        "A large property with land":
+            H "Yes, like Styles Court."
+            P "Correct! Styles is a country estate. +1 point"
+            $ english_quiz_score += 1
+            
+        "A business in the city":
+            H "No, it's a residential property."
+            P "An estate typically refers to a large rural property."
+    
+    # SECTION 2: GRAMMAR IN CONTEXT (5 questions)
+    P "Now, grammar questions based on the story text."
+    
+    # Question 6 - Verb tenses
+    menu grammar1:
+        P "Complete this sentence correctly: 'The birds ___ singing and leaves ___ rustling.'"
+        
+        "is, is":
+            H "That doesn't sound right with plural subjects."
+            P "Incorrect with plural subjects 'birds' and 'leaves'."
+            
+        "was, was":
+            H "Still doesn't match plural subjects."
+            P "The subjects are plural, need plural verbs."
+            
+        "were, were":
+            H "Yes, both subjects are plural."
+            P "Perfect grammar! +1 point"
+            $ english_quiz_score += 1
+    
+    # Question 7 - Prepositions
+    menu grammar2:
+        P "Choose the correct preposition: 'I had leisure time ___ dinner.'"
+        
+        "during":
+            H "No, it means before the meal."
+            P "'Before' indicates time preceding dinner."
+            
+        "before":
+            H "Yes, it happened prior to dinner."
+            P "Excellent! The time was preceding dinner. +1 point"
+            $ english_quiz_score += 1
+            
+        "while":
+            H "No, it wasn't during the meal."
+            P "'While' would mean during the dinner itself."
+    
+    # Question 8 - Word order
+    menu grammar3:
+        P "Which sentence has correct word order?"
+        
+        "A gravel path to the oak door led.":
+            H "That sounds unnatural in English."
+            P "The word order is incorrect."
+            
+        "Led a gravel path to the oak door.":
+            H "That's missing the subject at the beginning."
+            P "This is not a complete sentence with proper structure."
+            
+        "A gravel path led to the oak door.":
+            H "Yes, that sounds correct."
+            P "Perfect English word order! +1 point"
+            $ english_quiz_score += 1
+    
+    # Question 9 - Articles
+    menu grammar4:
+        P "Choose the correct article: 'There was ___ scent of polished oak.'"
+        
+        "a":
+            H "Yes, it's referring to one specific scent."
+            P "Correct! We use 'a' with singular countable nouns. +1 point"
+            $ english_quiz_score += 1
+            
+        "an":
+            H "No, 'scent' doesn't start with a vowel sound."
+            P "'Scent' begins with a consonant sound."
+            
+        "the":
+            H "Not quite, we're introducing the scent, not referring to a known one."
+            P "We use 'the' for specific, previously mentioned things."
+    
+    # Question 10 - Adjectives
+    menu grammar5:
+        P "Which adjective form is correct: 'The ___ mansion didn't attract much attention.'"
+        
+        "quiet":
+            H "Yes, describing the mansion as quiet."
+            P "Excellent! 'Quiet' is the correct adjective form. +1 point"
+            $ english_quiz_score += 1
+            
+        "quietly":
+            H "No, that's an adverb form."
+            P "'Quietly' would describe how something is done."
+            
+        "quietness":
+            H "No, that's a noun form."
+            P "'Quietness' is a noun, not an adjective."
+    
+    # SECTION 3: COMPREHENSION AND USAGE (5 questions)
+    P "Final section: Reading comprehension and word usage."
+    
+    # Question 11 - Context comprehension
+    menu comprehension1:
+        P "Based on the story, why might Alfred's politeness seem 'unnatural'?"
+        
+        "Because he's usually very rude":
+            H "We don't have evidence he's usually rude."
+            P "We only see his current behavior, not his usual manner."
+            
+        "Because it seems too measured and deliberate":
+            H "Yes, it appears calculated."
+            P "Exactly! It seems excessively careful. +1 point"
+            $ english_quiz_score += 1
+            
+        "Because he doesn't speak English well":
+            H "No, his English seems fine."
+            P "His language skills aren't in question."
+    
+    # Question 12 - Vocabulary in context
+    menu comprehension2:
+        P "When Cynthia says she can 'assist' at the pharmacy, what does she mean?"
+        
+        "Cause trouble":
+            H "No, that's not what assist means."
+            P "'Assist' means to help, not hinder."
+            
+        "Provide help":
+            H "Yes, she works there helping people."
+            P "Correct! Assist means to help or aid. +1 point"
+            $ english_quiz_score += 1
+            
+        "Steal medicines":
+            H "No, that would be illegal!"
+            P "We have no evidence of criminal activity."
+    
+    # Question 13 - Multiple meaning words
+    menu comprehension3:
+        P "What does 'firm' mean in: 'The woman's voice remained firm'?"
+        
+        "Soft and gentle":
+            H "No, that's the opposite of firm."
+            P "Firm suggests strength, not softness."
+            
+        "Unchanging and determined":
+            H "Yes, she spoke with determination."
+            P "Exactly! Firm can mean resolute or determined. +1 point"
+            $ english_quiz_score += 1
+            
+        "A business company":
+            H "No, that's a different meaning of firm."
+            P "That's the noun form, here it's an adjective."
+    
+    # Question 14 - Synonyms
+    menu comprehension4:
+        P "Which word is a synonym for 'rapidly' as in 'moved rapidly'?"
+        
+        "Slowly":
+            H "No, that's an antonym."
+            P "Slowly means the opposite of rapidly."
+            
+        "Quickly":
+            H "Yes, both mean fast movement."
+            P "Perfect! Rapidly and quickly are synonyms. +1 point"
+            $ english_quiz_score += 1
+            
+        "Carefully":
+            H "No, that describes manner, not speed."
+            P "Carefully describes how, not how fast."
+    
+    # Question 15 - Word forms
+    menu comprehension5:
+        P "What is the noun form of 'acquired' as in 'recently acquired editions'?"
+        
+        "Acquisition":
+            H "Yes, that sounds right."
+            P "Excellent! Acquisition is the noun form. +1 point"
+            $ english_quiz_score += 1
+            
+        "Acquiring":
+            H "That's a gerund, not quite the same."
+            P "Acquiring is a verbal noun, but acquisition is better."
+            
+        "Acquire":
+            H "No, that's the verb form."
+            P "That's the base verb, not the noun."
+    
+    # Show results
+    call screen english_quiz_results
+    hide screen english_quiz_results
+    
+    # Feedback based on score
+    if english_quiz_score >= 12:
+        P "Magnifique! Your English comprehension is exceptional! You have mastered both vocabulary and grammar."
+        H "Thank you, Poirot! I've been studying diligently."
+    elif english_quiz_score >= 8:
+        P "Good work, my friend! You have a solid foundation in English. With more practice, you will excel."
+        H "I'll continue to improve my skills."
+    else:
+        P "Do not be discouraged! Learning a language takes time. Review the vocabulary and try again."
+        H "I'll study harder, Poirot."
+    
+    P "Remember these words - they are essential for understanding our investigation fully."
+    
+    stop music fadeout 1.0
+    return
+
+# Добавляем возможность запуска английского теста из меню
+label start_english_quiz:
     scene black
-    show text "Vocabulary and Comprehension Quiz" at truecenter
+    show text "English Vocabulary and Comprehension Test" at truecenter
     with fade
     pause 1.0
     hide text
-    jump vocabulary_quiz
-
-# Вставляем точку продолжения после квиза
-label ch2_continue_investigation:
-    scene bg hall with fade
-    show poirot at center
-    P "Now, where were we? Ah yes, the investigation continues..."
-    # Продолжение основной игры
-
+    call english_vocabulary_quiz
+    jump ch2_continue_investigation
