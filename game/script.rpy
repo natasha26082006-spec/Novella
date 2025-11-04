@@ -44,6 +44,10 @@ init python:
     def add_note(text):
         if text not in notebook:
             notebook.append(text)
+    def add_clue(key, text):
+        if key not in clues:
+            clues[key] = True
+            add_note(text)
 
 default notebook_page = 0
 define NOTES_PER_PAGE = 5   # Сколько заметок показывать на одной странице
@@ -441,87 +445,72 @@ label english_vocabulary_quiz:
     
     # Question 1
     menu vocab1:
-        P "What does 'tranquil' mean?"
+        P "What does 'initial' mean?"
         
         "Noisy and chaotic":
-            H "That doesn't sound right."
-            P "Incorrect! Tranquil means peaceful."
+            P "Incorrect! Tranquil means first."
             
-        "Peaceful and calm":
-            H "Yes, like the tranquil garden."
+        "Earliest and first":
             P "Exactly correct! +1 point"
             $ english_quiz_score += 1
             
         "Dangerous and threatening":
-            H "No, that's the opposite."
-            P "Non, tranquil describes peace, not danger."
+            P "Non, initial describes happening at the beginning, not danger."
     
     # Question 2
     menu vocab2:
-        P "What is the meaning of 'meticulous'?"
+        P "What is the meaning of 'vibrant'?"
         
-        "Careless and sloppy":
-            H "No, that's the opposite meaning."
-            P "Meticulous is the opposite of careless."
+        "Dull and faded":
+            P "No, that's the opposite meaning."
             
-        "Showing great attention to detail":
-            H "Yes, like Poirot's methods."
+        "Full of excitement and energy":
             P "Perfect! You understand precisely. +1 point"
             $ english_quiz_score += 1
             
         "Quick and hurried":
-            H "No, meticulous work takes time."
-            P "Meticulous work requires care, not speed."
+            P "Incorrect! Vibrant means energetic."
     
     # Question 3  
     menu vocab3:
-        P "Define 'residue' in our investigation context."
+        P "Define 'brew' in the context of our story."
         
-        "The main ingredient":
-            H "No, residue is what's left over."
-            P "Residue refers to what remains, not the main part."
+        "To make beer":
+            P "No, you don't understand the meaning of the word."
             
-        "Remaining traces of something":
-            H "Yes, like residue in a cup."
+        "If you brew tea or coffee, you make it by adding hot water, and if it brews, it gradually develops flavour in hot water.":
             P "Excellent deduction! +1 point"
             $ english_quiz_score += 1
             
-        "A type of evidence bag":
-            H "No, that's not the definition."
-            P "Residue is the substance, not the container."
+        "A drink made by brewing, such as beer or tea":
+            P "No, that's not the definition."
     
     # Question 4
     menu vocab4:
-        P "What does 'withdrawn' mean when describing Lawrence?"
+        P "What does 'fatigue' mean?"
         
-        "Very sociable and outgoing":
-            H "No, Lawrence is quiet."
-            P "Withdrawn means the opposite of outgoing."
+        "Vigor and energy":
+            P "Fatigue means the opposite of vigor."
             
-        "Shy, quiet, not communicative":
-            H "Yes, he keeps to himself."
+        "The feeling of being tired":
             P "Precisely! You observe well. +1 point"
             $ english_quiz_score += 1
             
-        "Angry and confrontational":
-            H "No, he's reserved, not angry."
-            P "Withdrawn suggests quietness, not anger."
+        "Anger and rage":
+            P "Fatigue suggests tiredness, not anger."
     
     # Question 5
     menu vocab5:
         P "What is an 'estate' in our story?"
         
         "A small apartment":
-            H "No, Styles is large."
             P "An estate is large, not small."
             
         "A large property with land":
-            H "Yes, like Styles Court."
             P "Correct! Styles is a country estate. +1 point"
             $ english_quiz_score += 1
             
         "A business in the city":
-            H "No, it's a residential property."
             P "An estate typically refers to a large rural property."
     
     # SECTION 2: GRAMMAR IN CONTEXT (5 questions)
@@ -531,16 +520,13 @@ label english_vocabulary_quiz:
     menu grammar1:
         P "Complete this sentence correctly: 'The birds ___ singing and leaves ___ rustling.'"
         
-        "is, is":
-            H "That doesn't sound right with plural subjects."
+        "are, are":
             P "Incorrect with plural subjects 'birds' and 'leaves'."
             
         "was, was":
-            H "Still doesn't match plural subjects."
             P "The subjects are plural, need plural verbs."
             
         "were, were":
-            H "Yes, both subjects are plural."
             P "Perfect grammar! +1 point"
             $ english_quiz_score += 1
     
@@ -549,16 +535,13 @@ label english_vocabulary_quiz:
         P "Choose the correct preposition: 'I had leisure time ___ dinner.'"
         
         "during":
-            H "No, it means before the meal."
             P "'Before' indicates time preceding dinner."
             
         "before":
-            H "Yes, it happened prior to dinner."
             P "Excellent! The time was preceding dinner. +1 point"
             $ english_quiz_score += 1
             
         "while":
-            H "No, it wasn't during the meal."
             P "'While' would mean during the dinner itself."
     
     # Question 8 - Word order
@@ -566,15 +549,12 @@ label english_vocabulary_quiz:
         P "Which sentence has correct word order?"
         
         "A gravel path to the oak door led.":
-            H "That sounds unnatural in English."
             P "The word order is incorrect."
             
         "Led a gravel path to the oak door.":
-            H "That's missing the subject at the beginning."
             P "This is not a complete sentence with proper structure."
             
         "A gravel path led to the oak door.":
-            H "Yes, that sounds correct."
             P "Perfect English word order! +1 point"
             $ english_quiz_score += 1
     
@@ -583,16 +563,13 @@ label english_vocabulary_quiz:
         P "Choose the correct article: 'There was ___ scent of polished oak.'"
         
         "a":
-            H "Yes, it's referring to one specific scent."
             P "Correct! We use 'a' with singular countable nouns. +1 point"
             $ english_quiz_score += 1
             
         "an":
-            H "No, 'scent' doesn't start with a vowel sound."
             P "'Scent' begins with a consonant sound."
             
         "the":
-            H "Not quite, we're introducing the scent, not referring to a known one."
             P "We use 'the' for specific, previously mentioned things."
     
     # Question 10 - Adjectives
@@ -600,16 +577,13 @@ label english_vocabulary_quiz:
         P "Which adjective form is correct: 'The ___ mansion didn't attract much attention.'"
         
         "quiet":
-            H "Yes, describing the mansion as quiet."
             P "Excellent! 'Quiet' is the correct adjective form. +1 point"
             $ english_quiz_score += 1
             
         "quietly":
-            H "No, that's an adverb form."
             P "'Quietly' would describe how something is done."
             
         "quietness":
-            H "No, that's a noun form."
             P "'Quietness' is a noun, not an adjective."
     
     # SECTION 3: COMPREHENSION AND USAGE (5 questions)
@@ -620,50 +594,41 @@ label english_vocabulary_quiz:
         P "Based on the story, why might Alfred's politeness seem 'unnatural'?"
         
         "Because he's usually very rude":
-            H "We don't have evidence he's usually rude."
             P "We only see his current behavior, not his usual manner."
             
         "Because it seems too measured and deliberate":
-            H "Yes, it appears calculated."
             P "Exactly! It seems excessively careful. +1 point"
             $ english_quiz_score += 1
             
         "Because he doesn't speak English well":
-            H "No, his English seems fine."
-            P "His language skills aren't in question."
+            P "No, his English seems fine."
     
     # Question 12 - Vocabulary in context
     menu comprehension2:
         P "When Cynthia says she can 'assist' at the pharmacy, what does she mean?"
         
         "Cause trouble":
-            H "No, that's not what assist means."
             P "'Assist' means to help, not hinder."
             
         "Provide help":
-            H "Yes, she works there helping people."
             P "Correct! Assist means to help or aid. +1 point"
             $ english_quiz_score += 1
             
         "Steal medicines":
-            H "No, that would be illegal!"
-            P "We have no evidence of criminal activity."
+            P "No, that would be illegal!"
     
     # Question 13 - Multiple meaning words
     menu comprehension3:
         P "What does 'firm' mean in: 'The woman's voice remained firm'?"
         
         "Soft and gentle":
-            H "No, that's the opposite of firm."
             P "Firm suggests strength, not softness."
             
         "Unchanging and determined":
-            H "Yes, she spoke with determination."
             P "Exactly! Firm can mean resolute or determined. +1 point"
             $ english_quiz_score += 1
             
         "A business company":
-            H "No, that's a different meaning of firm."
             P "That's the noun form, here it's an adjective."
     
     # Question 14 - Synonyms
@@ -671,16 +636,13 @@ label english_vocabulary_quiz:
         P "Which word is a synonym for 'rapidly' as in 'moved rapidly'?"
         
         "Slowly":
-            H "No, that's an antonym."
             P "Slowly means the opposite of rapidly."
             
         "Quickly":
-            H "Yes, both mean fast movement."
             P "Perfect! Rapidly and quickly are synonyms. +1 point"
             $ english_quiz_score += 1
             
         "Carefully":
-            H "No, that describes manner, not speed."
             P "Carefully describes how, not how fast."
     
     # Question 15 - Word forms
@@ -688,16 +650,13 @@ label english_vocabulary_quiz:
         P "What is the noun form of 'acquired' as in 'recently acquired editions'?"
         
         "Acquisition":
-            H "Yes, that sounds right."
             P "Excellent! Acquisition is the noun form. +1 point"
             $ english_quiz_score += 1
             
         "Acquiring":
-            H "That's a gerund, not quite the same."
             P "Acquiring is a verbal noun, but acquisition is better."
             
         "Acquire":
-            H "No, that's the verb form."
             P "That's the base verb, not the noun."
     
     # Show results
